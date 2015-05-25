@@ -1,7 +1,7 @@
 #
 # Automatically generated make config: don't edit
 # Linux kernel version: 2.6.33
-# Mon Feb  9 16:07:19 2015
+# Mon May 25 14:46:12 2015
 #
 CONFIG_ARM=y
 CONFIG_SYS_SUPPORTS_APM_EMULATION=y
@@ -222,6 +222,7 @@ CONFIG_MACH_STM32=y
 # CONFIG_ARCH_STM32F41 is not set
 CONFIG_ARCH_STM32F42=y
 # CONFIG_ARCH_STM32F43 is not set
+# CONFIG_STM32_TS is not set
 
 #
 # STM32 I/O interfaces
