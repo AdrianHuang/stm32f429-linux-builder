@@ -25,11 +25,12 @@ the build procedure:
     sudo make install
 ```
 * Set ARM/uClinux Toolchain:
-  - Download [arm-2010q1-189-arm-uclinuxeabi-i686-pc-linux-gnu.tar.bz2](https://sourcery.mentor.com/public/gnu_toolchain/arm-uclinuxeabi/arm-2010q1-189-arm-uclinuxeabi-i686-pc-linux-gnu.tar.bz2) from Mentor Graphics
-  - only arm-2010q1 is known to work; don't use SourceryG++ arm-2011.03
+  - Install arm-cortexm3-uclinuxeabi toolchain (http://www.pengutronix.de/oselas/toolchain/index_en.html)
 ```
-    tar jxvf arm-2010q1-189-arm-uclinuxeabi-i686-pc-linux-gnu.tar.bz2
-    export PATH=`pwd`/arm-2010q1/bin:$PATH
+     echo "deb http://debian.pengutronix.de/debian/ sid main contrib non-free" | sudo tee /etc/apt/sources.list.d/pengutronix.list
+     sudo apt-get install oselas.toolchain-2014.12.0-arm-cortexm3-uclinuxeabi-gcc-4.9.2-uclibc-0.9.33.2-binutils-2.24-kernel-3.16-sanitized
+     $ export PATH=/opt/OSELAS.Toolchain-2014.12.0/arm-cortexm3-uclinuxeabi/gcc-4.9.2-uclibc-0.9.33.2-binutils-2.24-kernel-3.16-sanitized/bin:$PATH
+
 ```
 * [genromfs](http://romfs.sourceforge.net/)
 ```
@@ -45,7 +46,7 @@ Build Instructions
 ```
 * Once STM32F429 Discovery board is properly connected via USB wire to Linux host, you can execute ``make install`` to flash the device. Note: you have to ensure the installation of the latest OpenOCD in advance.
 ```
-    make install
+    sudo env "PATH=$PATH" make install
 ```
 Be patient when OpenOCD is flashing. Typically, it takes about 55 seconds.
 Use `make help` to get detailed build targets.
@@ -63,22 +64,20 @@ a PC serial port.
 Most PCs today come without an native RS232 port, thus an USB to serial
 converter is also needed.
 
-For example, we can simply connect the RX of the STM32 USART3 to the TX of
-the converter, and the TX of the USART3 to the RX of the converter:
-* pin PC10 -> TXD
-* pin PC11 -> RXD
+For example, we can simply connect the RX of the STM32 USART1 to the TX of
+the converter, and the TX of the USART1 to the RX of the converter:
+* pin PA9  (USART1_TX) -> USB UART RXD (White cable)
+* pin PA10 (USART1_RX) -> USB UART TXD (Green cable)
 
 
 Reference Boot Messages
 =======================
 ```
-U-Boot 2010.03-00003-g934021a ( Feb 09 2014 - 17:42:47)
+U-Boot 2015.04-g0b08303 (May 26 2015 - 22:02:26)
 
-CPU  : STM32F4 (Cortex-M4)
-Freqs: SYSCLK=180MHz,HCLK=180MHz,PCLK1=45MHz,PCLK2=90MHz
-Board: STM32F429I-DISCOVERY board,Rev 1.0
-DRAM:   8 MB
-Using default environment
+DRAM:  8 MiB
+WARNING: Caches not enabled
+Flash: 2 MiB
 
 Hit any key to stop autoboot:  0 
 ## Booting kernel from Legacy Image at 08020000 ...
@@ -86,14 +85,14 @@ Hit any key to stop autoboot:  0
 
 Starting kernel ...
 
-Linux version 2.6.33-arm1 (jserv@venux) (gcc version 4.4.1 (Sourcery G++ Lite 2010q1-189) ) #2 Sun Feb 9 17:54:20 CST 2014
-CPU: ARMv7-M Processor [410fc241] revision 1 (ARMv7M)
-CPU: NO data cache, NO instruction cache
-Machine: STMicro STM32
+Booting Linux on physical CPU 0x0
+Linux version 4.0.0-g21370f3 (adrian@adrian-F6S) (gcc version 4.9.2 (OSELAS.Toolchain-2014.12.0) ) #1 PREEMPT Tue May 26 22:08:23 CST 2015
+CPU: ARMv7-M [410fc241] revision 1 (ARMv7M), cr=00000000
+CPU: unknown data cache, unknown instruction cache
+Machine model: STMicroelectronics STM32F429i-DISCO board
 ...
 VFS: Mounted root (romfs filesystem) readonly on device 31:0.
-Freeing init memory: 16K
-starting pid 25, tty '/dev/ttyS2': '/bin/login -f root'
+...
 Welcome to
           ____ _  _
          /  __| ||_|                 

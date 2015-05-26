@@ -5,6 +5,6 @@
 # /etc/start must be executable script
 null::sysinit:/etc/start
 
-ttyS2::respawn:/bin/login -f root
+ttyS0::respawn:/bin/login -f root
 
 null::wait:/bin/cat /proc/cpuinfo > /dev/tty1

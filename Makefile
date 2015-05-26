@@ -6,10 +6,11 @@ include mk/defs.mak
 
 uboot_target :=  $(target_out)/uboot/u-boot.bin
 kernel_target := $(target_out)/kernel/arch/arm/boot/xipuImage.bin
+dtb_target    := $(target_out)/kernel/arch/arm/boot/dts/stm32f429-disco.dtb
 rootfs_target := $(target_out)/romfs.bin
 
 # toolchain configurations
-CROSS_COMPILE ?= arm-uclinuxeabi-
+CROSS_COMPILE ?= arm-cortexm3-uclinuxeabi-
 ROOTFS_CFLAGS := "-march=armv7-m -mtune=cortex-m4 \
 -mlittle-endian -mthumb \
 -Os -ffast-math \
